@@ -4,6 +4,7 @@ import { getVideos } from "@/lib/video-service"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+export const runtime = "edge"
 export const revalidate = 3600 // Revalidate every hour
 
 export default async function VideosPage() {

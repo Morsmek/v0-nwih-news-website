@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/breadcrumb"
 import { ShareButtons } from "@/components/share-buttons"
 import { RelatedArticles } from "@/components/related-articles"
 
+export const runtime = "edge"
 export const revalidate = 3600 // Revalidate every hour
 
 interface ArticlePageProps {

@@ -2,6 +2,7 @@ import { NewsGrid } from "@/components/news-grid"
 import { getNews } from "@/lib/news-service"
 import { Breadcrumb } from "@/components/breadcrumb"
 
+export const runtime = "edge"
 export const revalidate = 3600 // Revalidate every hour
 
 interface CategoryPageProps {

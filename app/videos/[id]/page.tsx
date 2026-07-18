@@ -4,6 +4,7 @@ import { Breadcrumb } from "@/components/breadcrumb"
 import { formatDate, formatViews } from "@/lib/utils"
 import { ShareButtons } from "@/components/share-buttons"
 
+export const runtime = "edge"
 export const revalidate = 3600 // Revalidate every hour
 
 interface VideoPageProps {

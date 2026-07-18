@@ -6,6 +6,7 @@ import { getNews } from "@/lib/news-service"
 import { getVideos } from "@/lib/video-service"
 import { WeatherWidget } from "@/components/weather-widget"
 
+export const runtime = "edge"
 export const revalidate = 3600 // Revalidate every hour
 
 export default async function Home() {
