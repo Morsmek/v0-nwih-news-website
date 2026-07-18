@@ -9,6 +9,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Disable webpack build cache to keep individual files under Cloudflare's 25 MiB limit
+  webpack: (config) => {
+    config.cache = false
+    return config
+  },
 }
 
 export default nextConfig
