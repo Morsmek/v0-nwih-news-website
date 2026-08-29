@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: 215 30% 12%;
+  --background: 215 45% 8%;
   --foreground: 210 40% 98%;
-  --card: 215 30% 15%;
+  --card: 215 38% 12%;
   --card-foreground: 210 40% 98%;
-  --popover: 215 30% 15%;
+  --popover: 215 38% 12%;
   --popover-foreground: 210 40% 98%;
   --primary: 215 100% 25%;
   --primary-foreground: 210 40% 98%;
@@ -23,35 +23,11 @@
   --input: 215 30% 20%;
   --ring: 215 100% 25%;
   --radius: 0.5rem;
-
-  /* NWIH Custom Colors */
   --nwih-blue: 215 100% 25%;
   --nwih-blue-dark: 215 100% 15%;
   --nwih-blue-light: 215 100% 50%;
-  --nwih-red: 0 100% 40%;
-  --nwih-red-dark: 0 100% 30%;
-}
-
-.light {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
+  --nwih-red: 0 72% 42%;
+  --nwih-red-dark: 0 72% 32%;
 }
 
 @layer base {
@@ -63,23 +39,21 @@
   }
 }
 
-/* Custom styles for news content */
 .prose img {
   @apply rounded-lg my-6;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-blue-700 pl-4 italic text-gray-300 my-6;
+  @apply border-l-4 border-red-700 pl-4 italic text-gray-300 my-6;
 }
 
-/* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(215 30% 10%);
+  background: hsl(215 45% 6%);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -89,4 +63,8 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(215 30% 30%);
+}
+
+input[type="range"] {
+  accent-color: #b91c1c;
 }

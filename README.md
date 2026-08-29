@@ -1,30 +1,25 @@
-# NWIH news website
+# NWIH — News When It Happens
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A pan-European digital newsroom: politics, markets, sport, science and culture as stories break.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/morsmeks-projects/v0-nwih-news-website)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/del5Wn1hQc7)
+## Stack
 
-## Overview
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- Radix UI
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Scripts
 
-## Deployment
+```bash
+pnpm install
+pnpm dev
+pnpm build
+```
 
-Your project is live at:
+## What’s included
 
-**[https://vercel.com/morsmeks-projects/v0-nwih-news-website](https://vercel.com/morsmeks-projects/v0-nwih-news-website)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/del5Wn1hQc7](https://v0.dev/chat/projects/del5Wn1hQc7)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+- Homepage with breaking ticker, featured story, markets, weather and video
+- Article, category, search and video player pages
+- Live blog, subscribe and sign-in (browser-local demo)
+- About, contact, careers, ethics and legal pages

@@ -1,16 +1,20 @@
+import type { Metadata } from "next"
 import { FeaturedVideo } from "@/components/featured-video"
 import { VideoCard } from "@/components/video-card"
 import { getVideos } from "@/lib/video-service"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 60
+
+export const metadata: Metadata = {
+  title: "Video news",
+  description: "Watch the latest video reports from NWIH correspondents.",
+}
 
 export default async function VideosPage() {
   const featuredVideo = await getVideos({ featured: true, count: 1 })
   const latestVideos = await getVideos({ count: 12 })
-
-  // Get videos by category
   const europeVideos = await getVideos({ category: "Europe", count: 6 })
   const sportsVideos = await getVideos({ category: "Sports", count: 6 })
   const techVideos = await getVideos({ category: "Technology", count: 6 })
@@ -25,12 +29,12 @@ export default async function VideosPage() {
         ]}
       />
 
-      <h1 className="text-3xl font-bold mt-6 mb-8 text-white border-l-4 border-red-700 pl-4">Video News</h1>
+      <h1 className="font-display text-3xl font-bold mt-6 mb-8 text-white border-l-4 border-red-700 pl-4 uppercase tracking-wide">
+        Video news
+      </h1>
 
-      {/* Featured Video */}
       <div className="mb-12">{featuredVideo.length > 0 && <FeaturedVideo video={featuredVideo[0]} />}</div>
 
-      {/* Video Categories */}
       <div className="mb-12">
         <Tabs defaultValue="latest" className="w-full">
           <TabsList className="bg-blue-900/30 border border-blue-900/50 mb-6">

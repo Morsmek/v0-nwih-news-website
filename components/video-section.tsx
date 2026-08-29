@@ -15,7 +15,7 @@ export function VideoSection({ title, videos, viewAllLink, featured = false }: V
   return (
     <section>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-white border-l-4 border-red-700 pl-3">{title}</h2>
+        <h2 className="font-display text-xl font-bold text-white border-l-4 border-red-700 pl-3 uppercase tracking-wide">{title}</h2>
         <Link href={viewAllLink} className="text-sm font-medium text-red-400 hover:text-red-300">
           View All Videos
         </Link>

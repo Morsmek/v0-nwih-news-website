@@ -1,26 +1,48 @@
 import Image from "next/image"
-import { formatDate } from "@/lib/utils"
-import { getArticle, getRelatedNews } from "@/lib/news-service"
+import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+import { formatDate, formatRelativeTime } from "@/lib/utils"
+import { getArticle, getArticleIds, getRelatedNews } from "@/lib/news-service"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { ShareButtons } from "@/components/share-buttons"
 import { RelatedArticles } from "@/components/related-articles"
 
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 60
 
 interface ArticlePageProps {
-  params: {
-    id: string
+  params: Promise<{ id: string }>
+}
+
+export async function generateStaticParams() {
+  return getArticleIds().map((id) => ({ id }))
+}
+
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const { id } = await params
+  const article = await getArticle(id)
+  if (!article) return { title: "Story not found" }
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      images: [article.imageUrl],
+      type: "article",
+    },
   }
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { id } = params
+  const { id } = await params
   const article = await getArticle(id)
-  const relatedArticles = await getRelatedNews(article.category, 4, id)
 
   if (!article) {
-    return <div>Article not found</div>
+    notFound()
   }
+
+  const relatedArticles = await getRelatedNews(article.category, 4, id)
+  const paragraphs = article.content.split("\n\n")
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -32,33 +54,62 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ]}
       />
 
-      <article className="max-w-4xl mx-auto mt-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">{article.title}</h1>
+      <article className="max-w-3xl mx-auto mt-8">
+        <div className="mb-4 flex items-center gap-2 flex-wrap">
+          {article.breaking && (
+            <span className="inline-flex items-center gap-1.5 bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-sm">
+              Breaking
+            </span>
+          )}
+          <span className="inline-block bg-blue-900/50 text-blue-100 text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-sm">
+            {article.category}
+          </span>
+        </div>
 
-        <div className="flex items-center text-sm text-gray-400 mb-6">
-          <div>By {article.author}</div>
-          <div className="mx-2">•</div>
-          <div>{formatDate(article.publishedAt)}</div>
-          <div className="mx-2">•</div>
-          <div className="capitalize">{article.category}</div>
+        <h1 className="font-serif text-3xl md:text-5xl font-bold mb-5 text-white leading-tight text-balance">
+          {article.title}
+        </h1>
+
+        <p className="text-lg text-gray-300 mb-6 leading-relaxed">{article.description}</p>
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-400 mb-6 pb-6 border-b border-blue-900/30">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-red-800 text-white flex items-center justify-center font-bold">
+              {article.author.charAt(0)}
+            </div>
+            <div>
+              <div className="text-gray-200 font-medium">By {article.author}</div>
+              {article.authorTitle && <div className="text-xs text-gray-500">{article.authorTitle}</div>}
+            </div>
+          </div>
+          <div className="ml-auto text-right">
+            <div>{formatDate(article.publishedAt)}</div>
+            <div className="text-xs text-gray-500">
+              {formatRelativeTime(article.publishedAt)}
+              {article.readTime ? ` · ${article.readTime} min read` : ""}
+            </div>
+          </div>
         </div>
 
         {article.imageUrl && (
-          <div className="mb-6 relative">
+          <figure className="mb-8 relative">
             <Image
-              src={article.imageUrl || "/placeholder.svg"}
+              src={article.imageUrl}
               alt={article.title}
-              width={900}
-              height={500}
-              className="rounded-lg w-full object-cover"
+              width={1200}
+              height={675}
+              className="rounded-lg w-full object-cover max-h-[520px]"
+              priority
             />
-            {article.imageCaption && <div className="text-sm text-gray-400 mt-2 italic">{article.imageCaption}</div>}
-          </div>
+            {article.imageCaption && (
+              <figcaption className="text-sm text-gray-500 mt-2 italic">{article.imageCaption}</figcaption>
+            )}
+          </figure>
         )}
 
-        <div className="prose prose-invert max-w-none mb-8 text-gray-300">
-          {article.content.split("\n\n").map((paragraph, index) => (
-            <p key={index} className="mb-4">
+        <div className="prose prose-invert max-w-none mb-8 text-gray-200 text-lg leading-relaxed">
+          {paragraphs.map((paragraph, index) => (
+            <p key={index} className={index === 0 ? "first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:mr-1 first-letter:float-left first-letter:leading-none first-letter:text-white" : "mb-5"}>
               {paragraph}
             </p>
           ))}

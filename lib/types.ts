@@ -4,12 +4,18 @@ export interface Article {
   description: string
   content: string
   author: string
+  authorTitle?: string
   publishedAt: string
   category: string
   imageUrl: string
   imageCaption?: string
   source?: string
   url?: string
+  tags?: string[]
+  breaking?: boolean
+  featured?: boolean
+  views?: number
+  readTime?: number
 }
 
 export interface WeatherData {
@@ -41,4 +47,27 @@ export interface VideoNews {
   views: number
   featured?: boolean
   author: string
+}
+
+export interface LiveUpdate {
+  id: string
+  time: string
+  datetime: string
+  title: string
+  body: string
+  tag?: string
+}
+
+export interface Job {
+  id: string
+  title: string
+  location: string
+  team: string
+  type: string
+  summary: string
+}
+
+export interface NavItem {
+  name: string
+  href: string
 }

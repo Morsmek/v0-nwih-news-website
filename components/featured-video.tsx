@@ -45,7 +45,7 @@ export function FeaturedVideo({ video }: FeaturedVideoProps) {
         </div>
 
         <Link href={`/videos/${video.id}`}>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 hover:text-red-400">{video.title}</h2>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold mb-3 hover:text-red-400">{video.title}</h2>
         </Link>
 
         <p className="text-gray-300 mb-4 line-clamp-2 md:line-clamp-3">{video.description}</p>

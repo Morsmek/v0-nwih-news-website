@@ -19,7 +19,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
             {index > 0 && <ChevronRight className="h-4 w-4 text-gray-500 mx-1" />}
 
             {index === items.length - 1 ? (
-              <span className="text-gray-400 text-sm">{item.label}</span>
+              <span className="text-gray-400 text-sm line-clamp-1 max-w-[240px] md:max-w-md">{item.label}</span>
             ) : (
               <Link href={item.href} className="text-sm font-medium text-gray-300 hover:text-red-400">
                 {item.label}
